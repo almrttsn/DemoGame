@@ -7,6 +7,8 @@ public class PlayerShootBehaviour : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _playerGunBarrelPoint;
 
+    private int _shootCount;
+
     public int _shootPower;
 
     void Update()
@@ -20,6 +22,8 @@ public class PlayerShootBehaviour : MonoBehaviour
         {
             var bullet = Instantiate(_bullet, _playerGunBarrelPoint.transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody>().AddForce(_playerGunBarrelPoint.transform.forward * _shootPower);
+            _shootCount++;
+            Debug.Log(_shootCount);
         }
     }
 }
