@@ -7,11 +7,11 @@ public class InGamePanel : MonoBehaviour
 {
     [SerializeField] Text _shootCountText;
 
-    public GameManager GameManager;
+    private GameManager _gameManager;
 
     public void Initialize(GameManager gameManager)
     {
-
+        _gameManager = gameManager;
     }
     public void PopulateShootCountText(int _shootCountOnPanel)
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,6 @@ public class PlayerShootBehaviour : MonoBehaviour
     public int _shootCount;
     public int _shootPower;
 
-
     public void Initialize(PlayerController playerController)
     {
         _playerController = playerController;
@@ -22,6 +22,7 @@ public class PlayerShootBehaviour : MonoBehaviour
     void Update()
     {
         PlayerPullTriggerProcess();
+        PlayerAimProcess();
     }
 
     private void PlayerPullTriggerProcess()
@@ -34,6 +35,12 @@ public class PlayerShootBehaviour : MonoBehaviour
             Debug.Log(_shootCount);
             InformUI();
         }
+    }
+    private void PlayerAimProcess()
+    {
+        Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
     }
 
     private void InformUI()
