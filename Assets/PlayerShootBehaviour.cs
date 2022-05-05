@@ -7,9 +7,17 @@ public class PlayerShootBehaviour : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _playerGunBarrelPoint;
 
-    private int _shootCount;
+    private PlayerController _playerController;
 
+    public int _shootCount;
     public int _shootPower;
+
+
+    public void Initialize(PlayerController playerController)
+    {
+        _playerController = playerController;
+        InformUI();
+    }
 
     void Update()
     {
@@ -24,6 +32,12 @@ public class PlayerShootBehaviour : MonoBehaviour
             bullet.GetComponent<Rigidbody>().AddForce(_playerGunBarrelPoint.transform.forward * _shootPower);
             _shootCount++;
             Debug.Log(_shootCount);
+            InformUI();
         }
+    }
+
+    private void InformUI()
+    {
+        _playerController.GameManager.InGamePanel.PopulateShootCountText(_shootCount);
     }
 }
