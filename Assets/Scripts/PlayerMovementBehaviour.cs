@@ -25,17 +25,17 @@ public class PlayerMovementBehaviour : MonoBehaviour
         {
             transform.position += -transform.right * _movementFactor * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             transform.position += transform.right * _movementFactor * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.up * _movementFactor * Time.deltaTime;
+            transform.position += transform.forward * _movementFactor * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            transform.position += -transform.up * _movementFactor * Time.deltaTime;
+            transform.position += -transform.forward * _movementFactor * Time.deltaTime;
         }
     }
 }
