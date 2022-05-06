@@ -7,23 +7,32 @@ public class GunBehaviour : MonoBehaviour
     [SerializeField] private List<GameObject> _buckshots;
 
     private PlayerController _playerController;
-    private Transform _buckshotRandomCreationTransform;
-    private float _randomRange;
+    [SerializeField] private GameObject _buckshotRandomCreationPoint;
+    private Vector3 _buckshotRandomCreationOffset;
+    private float _randomRangeX;
+    private float _randomRangeY;
 
     public void Initialize(PlayerController playerController)
     {
         _playerController = playerController;
+    }
+
+    private void Update()
+    {
         BuckshotCreationProcess();
     }
 
     public void BuckshotCreationProcess()
     {
-        for(int i = 0; i<_buckshots.Count; i++)
+        for(int i = 0; i < _buckshots.Count; i++)
         {
-            _randomRange = Random.Range(-1f, 1f);
-            _buckshotRandomCreationTransform.position = new Vector3(0, _randomRange, 0);
-            Debug.Log(_randomRange);
-            //var _buckshot = Instantiate(_buckshots, _buckshotRandomCreationTransform.position, Quaternion.identity);
+            _buckshotRandomCreationPoint.transform.position = _buckshotRandomCreationOffset;
+            _randomRangeX = Random.Range(-0.75f, 1.2f);
+            _randomRangeY = Random.Range(-0.75f, 1.2f);
+            _buckshotRandomCreationOffset = new Vector3(_randomRangeX, _randomRangeY, 0);
+            Debug.Log(_randomRangeY);
+            Debug.Log(_buckshotRandomCreationOffset);
+            //var _buckshot = Instantiate(_buckshots, _buckshotRandomCreationOffset, Quaternion.identity);
         }
     }
 

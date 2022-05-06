@@ -362,6 +362,7 @@ MonoBehaviour:
   - {fileID: 4084851916140419945, guid: eb25c292144c77f43a0be2ccc09c1724, type: 3}
   - {fileID: 4084851916140419945, guid: f2ab38eeeaffb25498c928f10836b248, type: 3}
   - {fileID: 4084851916140419945, guid: 4acc4d0884941e345930fcde8fe5f2e6, type: 3}
+  _buckshotRandomCreationPoint: {fileID: 86716400}
 --- !u!1 &572616858
 GameObject:
   m_ObjectHideFlags: 0
