@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerShootBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject _bullet;
+    [SerializeField] private GameObject _pistolBulletPrefab;
+    [SerializeField] private GameObject _shotgunBulletPrefab;
     [SerializeField] private Transform _playerGunBarrelPoint;
 
     private PlayerController _playerController;
@@ -21,21 +23,43 @@ public class PlayerShootBehaviour : MonoBehaviour
 
     void Update()
     {
-        PlayerPullTriggerProcess();
+        //ShootPistol();
+        ShootShotgun();
         PlayerAimProcess();
     }
 
-    private void PlayerPullTriggerProcess()
+    private void ShootPistol()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            var bullet = Instantiate(_bullet, _playerGunBarrelPoint.transform.position, Quaternion.identity);
+            var bullet = Instantiate(_pistolBulletPrefab, _playerGunBarrelPoint.transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody>().AddForce(_playerGunBarrelPoint.transform.forward * _shootPower);
             _shootCount++;
             Debug.Log(_shootCount);
             InformUI();
         }
     }
+
+    private void ShootShotgun()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var bullet = Instantiate(_shotgunBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
+                bullet.transform.rotation *= Quaternion.Euler(Random.Range(-2f,2f), Random.Range(-2f, 2f), 0);
+                bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
+                _shootCount++;
+                Debug.Log(_shootCount);
+                InformUI();
+            }
+
+        }
+
+
+    }
+
+
     private void PlayerAimProcess()
     {
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
