@@ -23,19 +23,19 @@ public class PlayerMovementBehaviour : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += -transform.right * _movementFactor * Time.deltaTime;
+            transform.position += new Vector3(-1,0,0) * _movementFactor * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += transform.right * _movementFactor * Time.deltaTime;
+            transform.position += new Vector3(1, 0, 0) * _movementFactor * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.forward * _movementFactor * Time.deltaTime;
+            transform.position += new Vector3(0, 0, 1) * _movementFactor * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += -transform.forward * _movementFactor * Time.deltaTime;
+            transform.position += new Vector3(0, 0, -1) * _movementFactor * Time.deltaTime;
         }
     }
 }
