@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 505984436}
   - component: {fileID: 505984435}
   - component: {fileID: 505984434}
+  - component: {fileID: 505984437}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -337,6 +338,30 @@ MonoBehaviour:
   GameManager: {fileID: 305145924}
   PlayerShootBehaviour: {fileID: 505984434}
   PlayerMovementBehaviour: {fileID: 505984435}
+  GunBehaviour: {fileID: 505984437}
+--- !u!114 &505984437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505984429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d96c9ec64a64c48a7bb61ba98ed3ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buckshots:
+  - {fileID: 4084851916140419945, guid: 615ad1c31e8857b4b8c004b51904ca39, type: 3}
+  - {fileID: 4084851916140419945, guid: 06a84642e8950764a83d6e166cff8696, type: 3}
+  - {fileID: 4084851916140419945, guid: 86bc71fa5e746df4bb195293e8788099, type: 3}
+  - {fileID: 4084851916140419945, guid: 7bc501f2a3e403a48aeda63b807e2f33, type: 3}
+  - {fileID: 4084851916140419945, guid: b8b7482318178df49bbc55e9636333f7, type: 3}
+  - {fileID: 4084851916140419945, guid: 706a908b6ba05974eb38bc4fb8bce8ed, type: 3}
+  - {fileID: 4084851916140419945, guid: 7d4f7e78a28ca8b4ab213dad50f5791c, type: 3}
+  - {fileID: 4084851916140419945, guid: eb25c292144c77f43a0be2ccc09c1724, type: 3}
+  - {fileID: 4084851916140419945, guid: f2ab38eeeaffb25498c928f10836b248, type: 3}
+  - {fileID: 4084851916140419945, guid: 4acc4d0884941e345930fcde8fe5f2e6, type: 3}
 --- !u!1 &572616858
 GameObject:
   m_ObjectHideFlags: 0
