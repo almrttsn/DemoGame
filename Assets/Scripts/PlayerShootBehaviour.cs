@@ -15,6 +15,9 @@ public class PlayerShootBehaviour : MonoBehaviour
     public int _shootCount;
     public int _shootPower;
 
+    public bool isPistolActivated;
+    public bool isShotgunActivated;
+
     public void Initialize(PlayerController playerController)
     {
         _playerController = playerController;
@@ -23,35 +26,41 @@ public class PlayerShootBehaviour : MonoBehaviour
 
     void Update()
     {
-        //ShootPistol();
+        ShootPistol();
         ShootShotgun();
         PlayerAimProcess();
     }
 
-    private void ShootPistol()
+    public void ShootPistol()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (isPistolActivated)
         {
-            var bullet = Instantiate(_pistolBulletPrefab, _playerGunBarrelPoint.transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody>().AddForce(_playerGunBarrelPoint.transform.forward * _shootPower);
-            _shootCount++;
-            Debug.Log(_shootCount);
-            InformUI();
-        }
-    }
-
-    private void ShootShotgun()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            for (int i = 0; i < 10; i++)
+            if (Input.GetMouseButtonDown(0))
             {
-                var bullet = Instantiate(_shotgunBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
-                bullet.transform.rotation *= Quaternion.Euler(Random.Range(-2f,2f), Random.Range(-2f, 2f), 0);
+                var bullet = Instantiate(_pistolBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
                 bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
                 _shootCount++;
                 Debug.Log(_shootCount);
                 InformUI();
+            }
+        }
+    }
+
+    public void ShootShotgun()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isShotgunActivated)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var bullet = Instantiate(_shotgunBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
+                    bullet.transform.rotation *= Quaternion.Euler(Random.Range(-2f,2f), Random.Range(-2f, 2f), 0);
+                    bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
+                    _shootCount++;
+                    Debug.Log(_shootCount);
+                    InformUI();
+                }
             }
 
         }
