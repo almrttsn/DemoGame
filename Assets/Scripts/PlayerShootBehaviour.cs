@@ -4,10 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum GunType
+{
+    Pistol,Shotgun
+}
+
+public enum BulletSizeType
+{
+    Small,Big
+}
+
+public enum BulletColorType
+{
+    White,Red
+}
+
 public class PlayerShootBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject _pistolBulletPrefab;
-    [SerializeField] private GameObject _shotgunBulletPrefab;
+    [SerializeField] private GameObject _whiteBulletPrefab;
+    [SerializeField] private GameObject _redBulletPrefab;
+
     [SerializeField] private Transform _playerGunBarrelPoint;
 
     private PlayerController _playerController;
@@ -15,8 +31,9 @@ public class PlayerShootBehaviour : MonoBehaviour
     public int _shootCount;
     public int _shootPower;
 
-    public bool isPistolActivated;
-    public bool isShotgunActivated;
+    public GunType GunType;
+    public BulletSizeType BulletSizeType;
+    public BulletColorType BulletColorType;
 
     public void Initialize(PlayerController playerController)
     {
@@ -26,49 +43,69 @@ public class PlayerShootBehaviour : MonoBehaviour
 
     void Update()
     {
-        ShootPistol();
-        ShootShotgun();
         PlayerAimProcess();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            switch (GunType)
+            {
+                case GunType.Pistol:
+                    ShootPistol();
+                    break;
+                case GunType.Shotgun:
+                    ShootShotgun();
+                    break;
+                default:
+                    break;
+            }
+        }        
     }
 
     public void ShootPistol()
     {
-        if (isPistolActivated)
+        GameObject bullet = null;
+        if (BulletColorType == BulletColorType.Red)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                var bullet = Instantiate(_pistolBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
-                bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
-                _shootCount++;
-                Debug.Log(_shootCount);
-                InformUI();
-            }
+            bullet = Instantiate(_redBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
         }
+        else
+        {
+            bullet = Instantiate(_whiteBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
+        }
+        if (BulletSizeType == BulletSizeType.Big)
+        {
+            bullet.transform.localScale *= 10f;
+        }
+        bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
+        _shootCount++;
+        Debug.Log(_shootCount);
+        InformUI();
     }
 
     public void ShootShotgun()
     {
-        if (Input.GetMouseButtonDown(0))
+        for (int i = 0; i < 10; i++)
         {
-            if (isShotgunActivated)
+            GameObject bullet = null;
+            if(BulletColorType == BulletColorType.Red)
             {
-                for (int i = 0; i < 10; i++)
-                {
-                    var bullet = Instantiate(_shotgunBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
-                    bullet.transform.rotation *= Quaternion.Euler(Random.Range(-2f,2f), Random.Range(-2f, 2f), 0);
-                    bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
-                    _shootCount++;
-                    Debug.Log(_shootCount);
-                    InformUI();
-                }
+                bullet = Instantiate(_redBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
             }
-
+            else
+            {
+                bullet = Instantiate(_whiteBulletPrefab, _playerGunBarrelPoint.transform.position, _playerGunBarrelPoint.transform.rotation);
+            }
+            if (BulletSizeType == BulletSizeType.Big)
+            {
+                bullet.transform.localScale *= 10f;
+            }
+            bullet.transform.rotation *= Quaternion.Euler(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
+            bullet.GetComponent<BulletBehaviour>().ActivateBullet(_shootPower);
+            _shootCount++;
+            Debug.Log(_shootCount);
+            InformUI();
         }
-
-
     }
-
-
     private void PlayerAimProcess()
     {
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
